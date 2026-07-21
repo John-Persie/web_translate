@@ -70,7 +70,10 @@
           <span class="tr-arrow">→</span>
           <select id="tr-ext-target">${targetOpts}</select>
         </span>
-        <button class="tr-btn tr-btn-translate" id="tr-ext-translate-btn">翻译页面</button>
+        <span class="tr-selector-wrap">
+          <input type="text" id="tr-ext-selector" class="tr-selector-input" placeholder="CSS选择器，默认整页" value="body" title="限定翻译范围，如 .mainBody.mainBody_1">
+        </span>
+        <button class="tr-btn tr-btn-translate" id="tr-ext-translate-btn">翻译</button>
         <button class="tr-btn tr-btn-restore" id="tr-ext-restore-btn">恢复原文</button>
         <span class="tr-progress-wrap">
           <div class="tr-progress-bar"><div class="tr-progress-fill" id="tr-ext-progress-fill"></div></div>
@@ -186,7 +189,16 @@
     setProgress(0, 1);
 
     try {
-      const nodes = collectTextNodes(document.body);
+      const selector = document.getElementById('tr-ext-selector').value.trim() || 'body';
+      const roots = document.querySelectorAll(selector);
+      if (roots.length === 0) {
+        setStatus('选择器未匹配到任何元素', 'error');
+        return;
+      }
+      let nodes = [];
+      for (const root of roots) {
+        nodes.push(...collectTextNodes(root));
+      }
       const untranslated = nodes.filter(n => !translatedNodes.has(n));
 
       if (untranslated.length === 0) {
