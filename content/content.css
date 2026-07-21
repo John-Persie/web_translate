@@ -112,6 +112,26 @@
   font-size: 14px;
 }
 
+#tr-ext-toolbar .tr-selector-input {
+  padding: 5px 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: inherit;
+  color: #333;
+  background: #fff;
+  outline: none;
+  width: 180px;
+}
+
+#tr-ext-toolbar .tr-selector-input:focus {
+  border-color: #4285f4;
+}
+
+#tr-ext-toolbar .tr-selector-input::placeholder {
+  color: #aaa;
+}
+
 #tr-ext-toolbar .tr-btn {
   padding: 6px 14px;
   border-radius: 4px;
